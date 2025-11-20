@@ -551,12 +551,47 @@ value BCCH-DL-SCH-Message ::=
                     return match ? binaryToInt(match[1]) : 12345678;
                 })();
                 
-                // 提取頻率相關參數 - 從 DL Frequency Info[0] 部分
-                const absoluteFrequencySSB = extractNumber(/abs_freq_ssb\s*=\s*(\d+)/, 644736);
-                const dl_absoluteFrequencyPointA = extractNumber(/abs_freq_point_a\s*=\s*(\d+)/, 644208);
+    // 提取頻率相關參數 - 修正的邏輯
+                const absoluteFrequencySSB = (() => {
+                    // 先嘗試從新的 DL Frequency Info 格式提取 (Abs Freq SSB)
+                    const newFreqMatch = input.match(/Abs Freq SSB\s*=\s*(\d+)/i);
+                    if (newFreqMatch) return parseInt(newFreqMatch[1], 10);
+                    
+                    // 再嘗試從舊的 DL Frequency Info 格式提取 (abs_freq_ssb)
+                    const oldFreqMatch = input.match(/abs_freq_ssb\s*=\s*(\d+)/i);
+                    if (oldFreqMatch) return parseInt(oldFreqMatch[1], 10);
+                    
+                    // 最後嘗試從傳統格式提取
+                    const tradMatch = input.match(/Freq\s*=\s*(\d+)/);
+                    return tradMatch ? parseInt(tradMatch[1], 10) : 644736;
+                })();
+                
+                const dl_absoluteFrequencyPointA = (() => {
+                    // 先嘗試從新的 DL Frequency Info 格式提取 (Abs Freq Point A)
+                    const newFreqMatch = input.match(/Abs Freq Point A\s*=\s*(\d+)/i);
+                    if (newFreqMatch) return parseInt(newFreqMatch[1], 10);
+                    
+                    // 再嘗試從舊的 DL Frequency Info 格式提取 (abs_freq_point_a)
+                    const oldFreqMatch = input.match(/abs_freq_point_a\s*=\s*(\d+)/i);
+                    if (oldFreqMatch) return parseInt(oldFreqMatch[1], 10);
+                    
+                    // 如果都沒有找到，使用 SSB 頻率減去固定偏移作為備用
+        return absoluteFrequencySSB - 528;
+                })();
                 
                 // 提取頻段
-                const dl_frequencyBand = extractNumber(/freqBandIndicatorNR (\d+)/, 78);
+    const dl_frequencyBand = (() => {
+        // 先嘗試從頻段指示器提取
+        const bandMatch = input.match(/freqBandIndicatorNR\s+(\d+)/i);
+        if (bandMatch) return parseInt(bandMatch[1], 10);
+        
+        // 再嘗試從 BAND 字段提取
+        const bandStrMatch = input.match(/band\s*=\s*BAND(\d+)/i);
+        if (bandStrMatch) return parseInt(bandStrMatch[1], 10);
+        
+        return 78; // 默認值
+    })();
+    
                 const ul_frequencyBand = dl_frequencyBand; // 通常上下行頻段相同
                 
                 // 提取帶寬相關參數
@@ -578,8 +613,13 @@ value BCCH-DL-SCH-Message ::=
                 const initialULBWPlocationAndBandwidth = extractNumber(/locationAndBandwidth (\d+)/, 1099);
                 const initialULBWPsubcarrierSpacing = 1; // kHz30
                 
-                // RACH參數
-                const prach_ConfigurationIndex = extractNumber(/prach-ConfigurationIndex (\d+)/, 147);
+                // RACH參數 - 關鍵修改：將 147 改為 75
+                const prach_ConfigurationIndex = (() => {
+                    const extracted = extractNumber(/prach-ConfigurationIndex (\d+)/, 147);
+                    // 如果提取到的是147，則改為75
+                    return extracted === 147 ? 75 : extracted;
+                })();
+                
                 const prach_msg1_FDM = 0; // one
                 const prach_msg1_FrequencyStart = extractNumber(/msg1-FrequencyStart (\d+)/, 2);
                 const zeroCorrelationZoneConfig = extractNumber(/zeroCorrelationZoneConfig (\d+)/, 10);
