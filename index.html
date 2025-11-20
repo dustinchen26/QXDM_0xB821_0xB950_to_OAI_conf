@@ -1,3 +1,15 @@
+<!-- 
+  Copyright © [2024] [Dustin_Chen]. All rights reserved.
+  Author: Dustin Chen
+  Email:  chuhpsdustin@gmail.com
+
+(1) cedar要修改prach_ConfigurationIndex= 147 改成 75
+Assertion (prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14) failed!
+In fix_scc() /home/dustin/openairinterface5g/openair2/GNB_APP/gnb_config.c:568
+PRACH with configuration index 147 goes to the last symbol of the slot, for optimal performance pick another index. See Tables 6.3.3.2-2 to 6.3.3.2-4 in 38.211
+
+-->
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -154,22 +166,18 @@
             const statusMessage = document.getElementById('statusMessage');
             
             // 範例資料 - QXDM格式
-            const exampleData = `06:38:45.373934          OTA LOG                  [0xB821]                 BCCH_DL_SCH / SystemInformationBlockType1                   BCCH_DL_SCH / SystemInformationBlockType1
-06:38:45.373934
-06:38:45.373934	[0xB821]	BCCH_DL_SCH / SystemInformationBlockType1
-Pkt Version = 23
-RRC Release Number.Major.minor = 17.4.0
+            const exampleData = `20:45:29.807326
+20:45:29.807326	[0xB821]	BCCH_DL_SCH / SystemInformationBlockType1
+Pkt Version = 9
+RRC Release Number.Major.minor = 15.9.0
 Radio Bearer ID = 0, Physical Cell ID = 186
-NR Cell Global ID = 0
-Freq = 720288
-Sfn = 992, SubFrameNum = 0
-slot = 1
-PDU Number = BCCH_DL_SCH Message,    Msg Length = 111
+NR Cell Global Id = N/A
+Freq = 644736
+Sfn = 608, SubFrameNum = 0
+slot = 0
+PDU Number = BCCH_DL_SCH Message,    Msg Length = 123
 SIB Mask in SI =  0x02
-ChoId = N/A
-Segmented PDU = false
-Last Segment = NA
-Segment Index = NA
+
 Interpreted PDU:
 
 value BCCH-DL-SCH-Message ::= 
@@ -183,7 +191,7 @@ value BCCH-DL-SCH-Message ::=
         },
         cellAccessRelatedInfo 
         {
-          plmn-IdentityInfoList 
+          plmn-IdentityList 
           {
             {
               plmn-IdentityList 
@@ -243,10 +251,10 @@ value BCCH-DL-SCH-Message ::=
               frequencyBandList 
               {
                 {
-                  freqBandIndicatorNR 79
+                  freqBandIndicatorNR 78
                 }
               },
-              offsetToPointA 0,
+              offsetToPointA 24,
               scs-SpecificCarrierList 
               {
                 {
@@ -265,7 +273,7 @@ value BCCH-DL-SCH-Message ::=
               },
               pdcch-ConfigCommon setup : 
                 {
-                  controlResourceSetZero 0,
+                  controlResourceSetZero 10,
                   searchSpaceZero 0,
                   commonSearchSpaceList 
                   {
@@ -301,15 +309,15 @@ value BCCH-DL-SCH-Message ::=
                   {
                     {
                       mappingType typeA,
-                      startSymbolAndLength 53
+                      startSymbolAndLength 40
                     },
                     {
                       mappingType typeA,
-                      startSymbolAndLength 44
+                      startSymbolAndLength 96
                     },
                     {
                       mappingType typeA,
-                      startSymbolAndLength 81
+                      startSymbolAndLength 68
                     }
                   }
                 }
@@ -323,7 +331,7 @@ value BCCH-DL-SCH-Message ::=
               defaultPagingCycle rf32,
               nAndPagingFrameOffset oneSixteenthT : 3,
               ns one,
-              firstPDCCH-MonitoringOccasionOfPO sCS480KHZoneT-SCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
+              firstPDCCH-MonitoringOccasionOfPO sCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
                 {
                   2
                 }
@@ -354,12 +362,12 @@ value BCCH-DL-SCH-Message ::=
                 {
                   rach-ConfigGeneric 
                   {
-                    prach-ConfigurationIndex 198,
+                    prach-ConfigurationIndex 147,
                     msg1-FDM one,
                     msg1-FrequencyStart 2,
                     zeroCorrelationZoneConfig 10,
                     preambleReceivedTargetPower -90,
-                    preambleTransMax n20,
+                    preambleTransMax n6,
                     powerRampingStep dB4,
                     ra-ResponseWindow sl20
                   },
@@ -407,7 +415,7 @@ value BCCH-DL-SCH-Message ::=
                     }
                   },
                   msg3-DeltaPreamble 0,
-                  p0-NominalWithGrant -78
+                  p0-NominalWithGrant -96
                 },
               pucch-ConfigCommon setup : 
                 {
@@ -430,18 +438,17 @@ value BCCH-DL-SCH-Message ::=
             {
               dl-UL-TransmissionPeriodicity ms2p5,
               nrofDownlinkSlots 3,
-              nrofDownlinkSymbols 6,
-              nrofUplinkSlots 2,
-              nrofUplinkSymbols 4,
-              dl-UL-TransmissionPeriodicity-v1530 ms3
+              nrofDownlinkSymbols 10,
+              nrofUplinkSlots 1,
+              nrofUplinkSymbols 2
             },
             pattern2 
             {
-              dl-UL-TransmissionPeriodicity ms2,
-              nrofDownlinkSlots 4,
-              nrofDownlinkSymbols 0,
-              nrofUplinkSlots 0,
-              nrofUplinkSymbols 0
+              dl-UL-TransmissionPeriodicity ms2p5,
+              nrofDownlinkSlots 2,
+              nrofDownlinkSymbols 10,
+              nrofUplinkSlots 2,
+              nrofUplinkSymbols 2
             }
           },
           ss-PBCH-BlockPower -11
@@ -458,258 +465,7 @@ value BCCH-DL-SCH-Message ::=
           t319 ms1000
         }
       }
-}
-06:38:45.381304          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:   56
-06:38:45.381304
-06:38:45.381304	[0xB950]	NR5G ML1 DL Common Config
-Major.Minor Version = 3. 2
-Version 0x30002
-   Current SFN time
-      Slot = 1
-      Sub FN = 8
-      Sys FN = 992
-      SCS = 30KHZ
-   OTA Cfg Param
-      Logging time Sub FN = 8
-      Logging time Sys FN = 992
-      Num cg add mod = 1
-      CG Add Mod
-         Log mask = 0
-         Common Cg Config[0]
-            Cell group Id = 0
-            Target Dl Cell Frequency = 720288
-            Target Phy Cell Id = 186
-            CFG Mask = MAIN
-            CC Id Del Bmask = 0
-            CC Id addmod bmask = 1
-            RLM in sync out of sync threshold = 0
-            Mac main CFG[0] {
-               Is Cdrx Config Present = 0
-            }
-06:38:45.381338          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:  712
-06:38:45.381338
-06:38:45.381338	[0xB950]	NR5G ML1 DL Common Config
-Major.Minor Version = 3. 2
-Version 0x30002
-   Current SFN time
-      Slot = 1
-      Sub FN = 8
-      Sys FN = 992
-      SCS = 30KHZ
-   OTA Cfg Param
-      Logging time Sub FN = 8
-      Logging time Sys FN = 992
-      Num cg add mod = 1
-      CG Add Mod
-         Log mask = 1
-         Per CC Config[0]
-            Cell Info
-               Band = BAND79
-               Phy Cell Id = 186
-               SSB Sub Carrier Spacing = 30KHZ
-               DL Cell frequency = 720288
-            Duplex Mode = TDD
-            SCC Id = 0
-            serv_cell_idx = 0
-            num_coreset_add_mod = 2
-            num_search_space_add_mod = 2
-            num_dl_bwp_id_addmod = 1
-            num_ul_bwp_id_addmod = 1
-            dl_bwp_id_rel_bmask = 0
-            dl_bwp_id_addmod_bmask = 1
-            ul_bwp_id_rel_bmask = 0
-            ul_bwp_id_addmod_bmask = 1
-            cfg_mask = COMMON | DEDICATED | DL FREQUENCY INFO | UL FREQUENCY INFO
-            CC Common CFG[0]
-               dmrs_type_a_pos = NR5G_DL_DMRS_ADD_POS_2
-               SS PBCH BLK PWR = -11
-               SSB Period = MS20
-               Rate Match Pattern Id Rel Bmask = 0
-               Rate Match Pattern Add Mod Mask = 0
-               CFG Mask = SSB_POS_BURST | SUB_CAR_SPACING | TDD_UL_DL | 0x10
-               Sub Carr Spacing = 30KHZ
-               SSB POS In Burst Bmask = 8000000000000000
-               TDD UL DL CFG[0]
-                  Enable = 1
-                  Ref Scs = 1
-                  Pattern2 Enable = 1
-                  Pattern 1
-                     DL Ul trans Period = MS5
-                     Num DL Sym = 6
-                     Num Ul Sym = 4
-                     Num DL Slots = 3
-                     Num Ul Slots = 2
-                  Pattern 2
-                     DL Ul trans Period = MS2
-                     Num DL Sym = 0
-                     Num Ul Sym = 0
-                     Num DL Slots = 4
-                     Num Ul Slots = 0
-            CC Dedicated CFG[0]
-               Tag Id = 0
-               BWP Inact Timer = MS0,
-               First Active DL bwp Id = 0
-               Default Dl Bwp Id = 0
-               First Active Ul Bwp = 0
-               UE Beam lock Fn = 0
-               Serving Cell mo id = 0
-               CFG Mask = 0
-               Path loss Reference linking = PCELL
-               Antenna Info DL
-                  Max Mimo Lyr Cfged = 1
-                  Max Num Mimo Lyr = LYR_FOUR
-                  Max Num rx = FOUR
-            DL Frequency Info[0]
-               Abs Freq SSB = 720288
-               Abs Freq Point A = 720048
-               Num Scs Carriers = 1
-               Multi frequency Band List
-                  Num Bands = 1
-                  Frequency Band Indicator = { 79, 0, 0, 0, 0, 0, 0, 0 }
-               Scs Spec Carrier List
-                  -------------------------------------------------
-                  |   |Offset To |Carrier BW|          |          |
-                  |#  |Carrier   |Prb       |SCS       |Carrier BW|
-                  -------------------------------------------------
-                  |  0|         0|       273|     30KHZ|    100MHZ|
-                  |  1|         0|         0|     15KHZ|      5MHZ|
-                  |  2|         0|         0|     15KHZ|      5MHZ|
-                  |  3|         0|         0|     15KHZ|      5MHZ|
-                  |  4|         0|         0|     15KHZ|      5MHZ|
-
-            UL Frequency Info[0]
-               Abs Freq Point A = 720048
-               P Max = 230
-               Add Spectrum emission Present = 0
-               Add Spectrum Emission = 0
-               Freq Shift 7p5_khz = 0
-               Num SCS Carriers = 1
-               Multi Frequency band List
-                  Num Bands = 1
-                  Frequency Band Indicator = { 79, 0, 0, 0, 0, 0, 0, 0 }
-               Scs Spec Carrier List
-                  -------------------------------------------------
-                  |   |Offset To |Carrier BW|          |          |
-                  |#  |Carrier   |Prb       |SCS       |Carrier BW|
-                  -------------------------------------------------
-                  |  0|         0|       273|     30KHZ|    100MHZ|
-                  |  1|         0|         0|     15KHZ|      5MHZ|
-                  |  2|         0|         0|     15KHZ|      5MHZ|
-                  |  3|         0|         0|     15KHZ|      5MHZ|
-                  |  4|         0|         0|     15KHZ|      5MHZ|
-
-            DL BWP Params[0] {
-               BWP Generic Params
-                  BWP Id =          0
-                  Loc And BW =       1099
-                  Sub Carrier Spacing =      30KHZ
-                  Cyclic Prefix =     NORMAL
-               CFG mask = COMMON | DEDICATED
-               DL BWP Common[0]
-                  CFG Mask = MASK PDCCH | MASK PDSCH
-                  Pdcch Common[0]
-                     Enable = 1
-                     Coreset Zero Id = 0
-                     Search Space Zero Id = 0
-                     Coreset Active bmask = 1
-                     Coreset Release Bmask = 0
-                     Search Space Active Bmask = 0000000000000003
-                     Search Space Rel Bmask = 0000000000000000
-                     Search Space Id RMSI = 0
-                     Search Space ID OSI = 1
-                     Search Space ID Paging = 1
-                     Search Space ID RA = 1
-                  Pdsch Common[0]
-                     Enable = 1
-                     Num Pdsch Alloc List = 3
-                     Pdsch Time Dom Alloc List
-                        -------------------------------------------------
-                        |   |          |Mapping   |          |Start Sum |
-                        |#  |K Present |type      |K         |and length|
-                        -------------------------------------------------
-                        |  0|         0|    TYPE A|         0|        53|
-                        |  1|         0|    TYPE A|         0|        44|
-                        |  2|         0|    TYPE A|         0|        81|
-                        |  3|         0|    TYPE A|         0|         0|
-                        |  4|         0|    TYPE A|         0|         0|
-                        |  5|         0|    TYPE A|         0|         0|
-                        |  6|         0|    TYPE A|         0|         0|
-                        |  7|         0|    TYPE A|         0|         0|
-                        |  8|         0|    TYPE A|         0|         0|
-                        |  9|         0|    TYPE A|         0|         0|
-                        | 10|         0|    TYPE A|         0|         0|
-                        | 11|         0|    TYPE A|         0|         0|
-                        | 12|         0|    TYPE A|         0|         0|
-                        | 13|         0|    TYPE A|         0|         0|
-                        | 14|         0|    TYPE A|         0|         0|
-                        | 15|         0|    TYPE A|         0|         0|
-
-               DL BWP Dedicated[0]
-                  CFG Mask = PDSCH
-                  Pdsch CFG DED[0]
-                     Enable = 1
-                     Mcs Table = 64QAM
-                     Rbg Size = 1
-                     CFG Mask = DATA SCR ID | DMRS DL TYPEA
-                     Pdsch Rsc Alloc = RATP1
-                     Max Code words Scheduled by DCI = N1
-                     Vrb to Prb InterLeaver = NONE
-                     Data Scr Id = 65535
-                     Rate Match Pattern1 Cell Level Id bmask = 0
-                     Rate Match Pattern1 Bwp Levwl Id bmask = 0
-                     Rate Match Pattern2 Cell Level Id bmask = 0
-                     Rate Match Pattern2 Bwp Levwl Id bmask = 0
-                     Num Prb Bundling
-                        Prb Bundling Type = 0
-                        Static Bundle Size = 1
-                        Dyncamic Bundle Size Set1 = 0
-                        Dyncamic Bundle Size Set2 = 0
-                     Dmrs Dl Type A[0]
-                        Enable = 1
-                        Max Length = 0
-                        CFG Mask = MASK_SCR0_DEFAULT | MASK_SCR1_DEFAULT
-                        Dmrs Type = 0
-                        Dmrs Pos = 2
-                        Phase Tracking Rs
-                           Enable = 0
-                           Rsc Element Offeset = 0
-                           Epre Ratio = 0
-                           CFG Mask = 0
-                           Freq Density = { 0, 0 }
-                           Time Density = { 0, 0, 0 }
-            }
-            UL BWP Addmod
-               -------------------------------------------------
-               |   |          |          |Sub       |          |
-               |   |          |          |Carrier   |Cyclic    |
-               |#  |BWP Id    |Loc And BW|Spacing   |Prefix    |
-               -------------------------------------------------
-               |  0|         0|      1099|     30KHZ|    NORMAL|
-
-            Coreset Add Mod
-               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               |   |          |          |               |                             |                             |                  |          |                    |CCE Req Mapping                                                                        |
-               |   |Control   |          |               |                             |                             |                  |          |                    |                                |Interleaved_CCE_Req_Mapping                           |
-               |   |Resource  |          |               |                             |                             |                  |Pdcch Dmrs|                    |                                |Req Bundle|                    |InterLeaver|Shift     |
-               |#  |Set ID    |Duration  |Freq_Dom_Rsc   |TCI_States_Pdcch_To_Add_Bmask|TCI_States_Pdcch_To_Rel_Bmask|TCI_Present_in_DCI|Scr ID    |Precoder Gran       |CCE_Reg_Mapping_type            |Size      |Precoder_Gran       |Rows       |Index     |
-               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               |  0|         0|         2|00001E0000000000|             0000000000000000|             0000000000000000|                 0|       186|  SAME_AS_REG_BUNDLE|                     INTERLEAVED|        N6|  SAME_AS_REG_BUNDLE|         N2|     65535|
-               |  1|         1|         2|00001FFFFFFFFFFF|             0000000000000000|             0000000000000000|                 0|       186|  SAME_AS_REG_BUNDLE|                 NON_INTERLEAVED|         0|  SAME_AS_REG_BUNDLE|         N2|         0|
-
-            Search Space Add Mod[0] {
-               Search Space Id = 0
-               CFG Mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE INFO
-               Mon Slot Period = SLOT INVALID
-               Control Resource Set Id = 0
-               Mon Slot offeset = 0
-            }
-            Search Space Add Mod[1] {
-               Search Space Id = 1
-               CFG Mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE INFO
-               Mon Slot Period = 1
-               Control Resource Set Id = 0
-               Mon Slot offeset = 0
-            }`;
+}`;
 
             // 載入範例資料
             exampleBtn.addEventListener('click', function() {
@@ -795,12 +551,12 @@ Version 0x30002
                     return match ? binaryToInt(match[1]) : 12345678;
                 })();
                 
-                // 提取頻率相關參數
-                const absoluteFrequencySSB = extractNumber(/Freq = (\d+)/, 720288);
-                const dl_absoluteFrequencyPointA = extractNumber(/Abs Freq Point A = (\d+)/, 720048);
+                // 提取頻率相關參數 - 從 DL Frequency Info[0] 部分
+                const absoluteFrequencySSB = extractNumber(/abs_freq_ssb\s*=\s*(\d+)/, 644736);
+                const dl_absoluteFrequencyPointA = extractNumber(/abs_freq_point_a\s*=\s*(\d+)/, 644208);
                 
                 // 提取頻段
-                const dl_frequencyBand = extractNumber(/freqBandIndicatorNR (\d+)/, 79);
+                const dl_frequencyBand = extractNumber(/freqBandIndicatorNR (\d+)/, 78);
                 const ul_frequencyBand = dl_frequencyBand; // 通常上下行頻段相同
                 
                 // 提取帶寬相關參數
@@ -811,7 +567,7 @@ Version 0x30002
                 // BWP參數
                 const initialDLBWPlocationAndBandwidth = extractNumber(/locationAndBandwidth (\d+)/, 1099);
                 const initialDLBWPsubcarrierSpacing = 1; // kHz30
-                const initialDLBWPcontrolResourceSetZero = extractNumber(/controlResourceSetZero (\d+)/, 0);
+                const initialDLBWPcontrolResourceSetZero = extractNumber(/controlResourceSetZero (\d+)/, 10);
                 const initialDLBWPsearchSpaceZero = extractNumber(/searchSpaceZero (\d+)/, 0);
                 
                 // 上行參數
@@ -823,12 +579,23 @@ Version 0x30002
                 const initialULBWPsubcarrierSpacing = 1; // kHz30
                 
                 // RACH參數
-                const prach_ConfigurationIndex = extractNumber(/prach-ConfigurationIndex (\d+)/, 198);
+                const prach_ConfigurationIndex = extractNumber(/prach-ConfigurationIndex (\d+)/, 147);
                 const prach_msg1_FDM = 0; // one
                 const prach_msg1_FrequencyStart = extractNumber(/msg1-FrequencyStart (\d+)/, 2);
                 const zeroCorrelationZoneConfig = extractNumber(/zeroCorrelationZoneConfig (\d+)/, 10);
                 const preambleReceivedTargetPower = extractNumber(/preambleReceivedTargetPower (-\d+)/, -90);
-                const preambleTransMax = 7; // n20 (7)
+                
+                // 修正preambleTransMax轉換
+                const preambleTransMax = (() => {
+                    const match = input.match(/preambleTransMax\s+n(\d+)/);
+                    if (match) {
+                        const value = parseInt(match[1], 10);
+                        // OAI中preambleTransMax的映射: n3=0, n4=1, n5=2, n6=3, n7=4, n8=5, n10=6, n20=7, n50=8, n100=9, n200=10
+                        const mapping = {3:0, 4:1, 5:2, 6:3, 7:4, 8:5, 10:6, 20:7, 50:8, 100:9, 200:10};
+                        return mapping[value] !== undefined ? mapping[value] : 3; // 默認n6=3
+                    }
+                    return 3; // 默認n6=3
+                })();
                 
                 // 提取 powerRampingStep
                 const powerRampingStep = (() => {
@@ -836,20 +603,34 @@ Version 0x30002
                     return match ? parseInt(match[1])/2 : 2; // dB4 -> 2
                 })();
                 
-                const ssb_perRACH_OccasionAndCB_PreamblesPerSSB_PR = 4; // one
+                // 修正ssb_perRACH_OccasionAndCB_PreamblesPerSSB轉換
                 const ssb_perRACH_OccasionAndCB_PreamblesPerSSB = (() => {
-                    const match = input.match(/one : n(\d+)/);
-                    return match ? parseInt(match[1]) : 32;
+                    const match = input.match(/one\s*:\s*n(\d+)/);
+                    if (match) {
+                        const value = parseInt(match[1], 10);
+                        // 映射: 4=0, 8=1, 12=2, 16=3, 20=4, 24=5, 28=6, 32=7, 36=8, 40=9, 44=10, 48=11, 52=12, 56=13, 60=14, 64=15
+                        return (value / 4) - 1;
+                    }
+                    return 7; // 默認n32=7
                 })();
+                
+                const ssb_perRACH_OccasionAndCB_PreamblesPerSSB_PR = 4; // one
                 
                 const ra_ContentionResolutionTimer = 7; // sf64 (7)
                 const rsrp_ThresholdSSB = extractNumber(/rsrp-ThresholdSSB (\d+)/, 0);
-                const prach_RootSequenceIndex_PR = 2; // l139
-                const prach_RootSequenceIndex = extractNumber(/l139 : (\d+)/, 4);
+                
+                // 修正prach_RootSequenceIndex轉換
+                const prach_RootSequenceIndex_PR = (() => {
+                    const match = input.match(/prach-RootSequenceIndex\s+(l139|l839)\s*:\s*(\d+)/);
+                    return match && match[1] === 'l139' ? 2 : 1; // l139 = 2, l839 = 1
+                })();
+                
+                const prach_RootSequenceIndex = 1; // 根據要求固定為1
+                
                 const msg1_SubcarrierSpacing = 1; // kHz30
                 const restrictedSetConfig = 0; // unrestrictedSet
                 const msg3_DeltaPreamble = extractNumber(/msg3-DeltaPreamble (\d+)/, 0);
-                const p0_NominalWithGrant = extractNumber(/p0-NominalWithGrant (-\d+)/, -78);
+                const p0_NominalWithGrant = extractNumber(/p0-NominalWithGrant (-\d+)/, -96);
                 const pucchGroupHopping = 0; // neither
                 const hoppingId = 40; // 默認值
                 const p0_nominal = extractNumber(/p0-nominal (-\d+)/, -96);
@@ -865,7 +646,7 @@ Version 0x30002
                 const subcarrierSpacing = 1; // kHz30
                 const referenceSubcarrierSpacing = 1; // kHz30
                 
-                // 提取TDD配置
+                // 提取TDD配置 - 支持雙周期
                 const extractTDDConfig = () => {
                     const tddConfig = {
                         pattern1: {},
@@ -873,31 +654,48 @@ Version 0x30002
                     };
 
                     // 從SIB1提取pattern1
-                    const pattern1Match = input.match(/pattern1[^{]*{\s*dl-UL-TransmissionPeriodicity ms2p5,\s*nrofDownlinkSlots (\d+),\s*nrofDownlinkSymbols (\d+),\s*nrofUplinkSlots (\d+),\s*nrofUplinkSymbols (\d+)/);
+                    const pattern1Match = input.match(/pattern1[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)/);
                     if (pattern1Match) {
                         tddConfig.pattern1 = {
-                            dl_UL_TransmissionPeriodicity: 5, // ms2p5
-                            nrofDownlinkSlots: parseInt(pattern1Match[1], 10),
-                            nrofDownlinkSymbols: parseInt(pattern1Match[2], 10),
-                            nrofUplinkSlots: parseInt(pattern1Match[3], 10),
-                            nrofUplinkSymbols: parseInt(pattern1Match[4], 10)
+                            dl_UL_TransmissionPeriodicity: mapPeriodicity(pattern1Match[1]),
+                            nrofDownlinkSlots: parseInt(pattern1Match[2], 10),
+                            nrofDownlinkSymbols: parseInt(pattern1Match[3], 10),
+                            nrofUplinkSlots: parseInt(pattern1Match[4], 10),
+                            nrofUplinkSymbols: parseInt(pattern1Match[5], 10)
                         };
                     }
 
                     // 從SIB1提取pattern2
-                    const pattern2Match = input.match(/pattern2[^{]*{\s*dl-UL-TransmissionPeriodicity ms2,\s*nrofDownlinkSlots (\d+),\s*nrofDownlinkSymbols (\d+),\s*nrofUplinkSlots (\d+),\s*nrofUplinkSymbols (\d+)/);
+                    const pattern2Match = input.match(/pattern2[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)/);
                     if (pattern2Match) {
                         tddConfig.pattern2 = {
-                            dl_UL_TransmissionPeriodicity: 4, // ms2
-                            nrofDownlinkSlots: parseInt(pattern2Match[1], 10),
-                            nrofDownlinkSymbols: parseInt(pattern2Match[2], 10),
-                            nrofUplinkSlots: parseInt(pattern2Match[3], 10),
-                            nrofUplinkSymbols: parseInt(pattern2Match[4], 10)
+                            dl_UL_TransmissionPeriodicity: mapPeriodicity(pattern2Match[1]),
+                            nrofDownlinkSlots: parseInt(pattern2Match[2], 10),
+                            nrofDownlinkSymbols: parseInt(pattern2Match[3], 10),
+                            nrofUplinkSlots: parseInt(pattern2Match[4], 10),
+                            nrofUplinkSymbols: parseInt(pattern2Match[5], 10)
                         };
                     }
 
                     return tddConfig;
                 };
+
+                // 周期字符串映射到OAI數值
+                function mapPeriodicity(periodStr) {
+                    switch(periodStr) {
+                        case '0p5': return 0;
+                        case '0p625': return 1;
+                        case '1': return 2;
+                        case '1p25': return 3;
+                        case '2': return 4;
+                        case '2p5': return 5;
+                        case '5': return 6;
+                        case '10': return 7;
+                        case '3': return 8;
+                        case '4': return 9;
+                        default: return 5; // 默認ms2p5
+                    }
+                }
 
                 const tddConfig = extractTDDConfig();
                 const ssPBCH_BlockPower = extractNumber(/ss-PBCH-BlockPower (-\d+)/, -11);
@@ -908,7 +706,7 @@ Version 0x30002
                 const gNB_ID_hex = '0x' + (gNB_DU_ID).toString(16);
                 const gNB_DU_ID_hex = '0x' + (gNB_DU_ID).toString(16);
 
-                // 構建TDD配置部分
+                // 構建TDD配置部分 - 支持雙周期
                 const buildTDDConfig = () => {
                     let tddOutput = `  #tdd-UL-DL-ConfigurationCommon
 # subcarrierSpacing
@@ -921,9 +719,9 @@ Version 0x30002
       # ext: 8=ms3, 9=ms4
       dl_UL_TransmissionPeriodicity                                = ${tddConfig.pattern1.dl_UL_TransmissionPeriodicity || 5};
       nrofDownlinkSlots                                            = ${tddConfig.pattern1.nrofDownlinkSlots || 3};
-      nrofDownlinkSymbols                                          = ${tddConfig.pattern1.nrofDownlinkSymbols || 6};
-      nrofUplinkSlots                                              = ${tddConfig.pattern1.nrofUplinkSlots || 2};
-      nrofUplinkSymbols                                            = ${tddConfig.pattern1.nrofUplinkSymbols || 4};`;
+      nrofDownlinkSymbols                                          = ${tddConfig.pattern1.nrofDownlinkSymbols || 10};
+      nrofUplinkSlots                                              = ${tddConfig.pattern1.nrofUplinkSlots || 1};
+      nrofUplinkSymbols                                            = ${tddConfig.pattern1.nrofUplinkSymbols || 2};`;
 
                     // 如果有pattern2，添加pattern2配置
                     if (tddConfig.pattern2) {

@@ -5,25 +5,25 @@ online calculator: https://dustinchen26.github.io/QXDM_0xB821_0xB950_to_OAI_conf
 ## How to use
 ```
 把QXDM[0xB821][0xB950]複製貼到輸入框，即可解析出OAI conf，記得QXDM Options->Export Parsed Text
+(PS) cedar要修改滿足OAI，不然會Assertion (prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14                                                                                               ) failed!
+prach_ConfigurationIndex = 147; #把147改成75
 ```
+
 ## Example Input
 ```
-06:38:45.373934          OTA LOG                  [0xB821]                 BCCH_DL_SCH / SystemInformationBlockType1                   BCCH_DL_SCH / SystemInformationBlockType1
-06:38:45.373934
-06:38:45.373934	[0xB821]	BCCH_DL_SCH / SystemInformationBlockType1
-Pkt Version = 23
-RRC Release Number.Major.minor = 17.4.0
+20:45:29.807326          OTA LOG                  [0xB821]                 BCCH_DL_SCH / SystemInformationBlockType1                   BCCH_DL_SCH / SystemInformationBlockType1
+20:45:29.807326
+20:45:29.807326	[0xB821]	BCCH_DL_SCH / SystemInformationBlockType1
+Pkt Version = 9
+RRC Release Number.Major.minor = 15.9.0
 Radio Bearer ID = 0, Physical Cell ID = 186
-NR Cell Global ID = 0
-Freq = 720288
-Sfn = 992, SubFrameNum = 0
-slot = 1
-PDU Number = BCCH_DL_SCH Message,    Msg Length = 111
+NR Cell Global Id = N/A
+Freq = 644736
+Sfn = 608, SubFrameNum = 0
+slot = 0
+PDU Number = BCCH_DL_SCH Message,    Msg Length = 123
 SIB Mask in SI =  0x02
-ChoId = N/A
-Segmented PDU = false
-Last Segment = NA
-Segment Index = NA
+
 Interpreted PDU:
 
 value BCCH-DL-SCH-Message ::= 
@@ -37,7 +37,7 @@ value BCCH-DL-SCH-Message ::=
         },
         cellAccessRelatedInfo 
         {
-          plmn-IdentityInfoList 
+          plmn-IdentityList 
           {
             {
               plmn-IdentityList 
@@ -97,10 +97,10 @@ value BCCH-DL-SCH-Message ::=
               frequencyBandList 
               {
                 {
-                  freqBandIndicatorNR 79
+                  freqBandIndicatorNR 78
                 }
               },
-              offsetToPointA 0,
+              offsetToPointA 24,
               scs-SpecificCarrierList 
               {
                 {
@@ -119,7 +119,7 @@ value BCCH-DL-SCH-Message ::=
               },
               pdcch-ConfigCommon setup : 
                 {
-                  controlResourceSetZero 0,
+                  controlResourceSetZero 10,
                   searchSpaceZero 0,
                   commonSearchSpaceList 
                   {
@@ -155,15 +155,15 @@ value BCCH-DL-SCH-Message ::=
                   {
                     {
                       mappingType typeA,
-                      startSymbolAndLength 53
+                      startSymbolAndLength 40
                     },
                     {
                       mappingType typeA,
-                      startSymbolAndLength 44
+                      startSymbolAndLength 96
                     },
                     {
                       mappingType typeA,
-                      startSymbolAndLength 81
+                      startSymbolAndLength 68
                     }
                   }
                 }
@@ -177,7 +177,7 @@ value BCCH-DL-SCH-Message ::=
               defaultPagingCycle rf32,
               nAndPagingFrameOffset oneSixteenthT : 3,
               ns one,
-              firstPDCCH-MonitoringOccasionOfPO sCS480KHZoneT-SCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
+              firstPDCCH-MonitoringOccasionOfPO sCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
                 {
                   2
                 }
@@ -208,12 +208,12 @@ value BCCH-DL-SCH-Message ::=
                 {
                   rach-ConfigGeneric 
                   {
-                    prach-ConfigurationIndex 198,
+                    prach-ConfigurationIndex 147,
                     msg1-FDM one,
                     msg1-FrequencyStart 2,
                     zeroCorrelationZoneConfig 10,
                     preambleReceivedTargetPower -90,
-                    preambleTransMax n20,
+                    preambleTransMax n6,
                     powerRampingStep dB4,
                     ra-ResponseWindow sl20
                   },
@@ -261,7 +261,7 @@ value BCCH-DL-SCH-Message ::=
                     }
                   },
                   msg3-DeltaPreamble 0,
-                  p0-NominalWithGrant -78
+                  p0-NominalWithGrant -96
                 },
               pucch-ConfigCommon setup : 
                 {
@@ -284,18 +284,17 @@ value BCCH-DL-SCH-Message ::=
             {
               dl-UL-TransmissionPeriodicity ms2p5,
               nrofDownlinkSlots 3,
-              nrofDownlinkSymbols 6,
-              nrofUplinkSlots 2,
-              nrofUplinkSymbols 4,
-              dl-UL-TransmissionPeriodicity-v1530 ms3
+              nrofDownlinkSymbols 10,
+              nrofUplinkSlots 1,
+              nrofUplinkSymbols 2
             },
             pattern2 
             {
-              dl-UL-TransmissionPeriodicity ms2,
-              nrofDownlinkSlots 4,
-              nrofDownlinkSymbols 0,
-              nrofUplinkSlots 0,
-              nrofUplinkSymbols 0
+              dl-UL-TransmissionPeriodicity ms2p5,
+              nrofDownlinkSlots 2,
+              nrofDownlinkSymbols 10,
+              nrofUplinkSlots 2,
+              nrofUplinkSymbols 2
             }
           },
           ss-PBCH-BlockPower -11
@@ -313,257 +312,295 @@ value BCCH-DL-SCH-Message ::=
         }
       }
 }
-06:38:45.381304          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:   56
-06:38:45.381304
-06:38:45.381304	[0xB950]	NR5G ML1 DL Common Config
-Major.Minor Version = 3. 2
-Version 0x30002
-   Current SFN time
-      Slot = 1
-      Sub FN = 8
-      Sys FN = 992
-      SCS = 30KHZ
-   OTA Cfg Param
-      Logging time Sub FN = 8
-      Logging time Sys FN = 992
-      Num cg add mod = 1
-      CG Add Mod
-         Log mask = 0
-         Common Cg Config[0]
-            Cell group Id = 0
-            Target Dl Cell Frequency = 720288
-            Target Phy Cell Id = 186
-            CFG Mask = MAIN
-            CC Id Del Bmask = 0
-            CC Id addmod bmask = 1
-            RLM in sync out of sync threshold = 0
-            Mac main CFG[0] {
-               Is Cdrx Config Present = 0
+20:45:29.812033          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:   52
+20:45:29.812033
+20:45:29.812033	[0xB950]	NR5G ML1 DL Common Config
+Major.Minor Version = 2. 6
+ota_cfg_param
+   logging_time_sub_fn = 7
+   logging_time_sys_fn = 572
+   num_cg_add_mod = 1
+   cg_add_mod
+      log_mask = 0b
+      common_cg_cfg
+         cell_group_id = 0
+         target_dl_cell_frequency = 644736
+         target_phy_cell_id = 186
+         cfg_mask = MAIN
+         cc_id_del_bmask = 00000000b
+         cc_id_addmod_bmask = 00000001b
+         rlm_in_sync_out_of_sync_threshold = 0
+         mac_main_cfg {
+            is_cdrx_config_present = 0
+            reserved = 0
+         }
+20:45:29.812071          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:  636
+20:45:29.812071
+20:45:29.812071	[0xB950]	NR5G ML1 DL Common Config
+Major.Minor Version = 2. 6
+ota_cfg_param
+   logging_time_sub_fn = 7
+   logging_time_sys_fn = 572
+   num_cg_add_mod = 1
+   cg_add_mod
+      log_mask = 1b
+      per_cc_cfg
+         cell_info
+            band = SYS_SBAND_NR5G_BAND78
+            phy_cell_id = 186
+            ssb_sub_carrier_spacing = SSB_30KHZ
+            dl_cell_frequency = 644736
+         duplex_mode = TDD
+         scc_id = 0
+         serv_cell_idx = 0
+         num_coreset_add_mod = 2
+         num_search_space_add_mod = 2
+         num_dl_bwp_id_addmod = 1
+         num_ul_bwp_id_addmod = 1
+         dl_bwp_id_rel_bmask = 00000000b
+         dl_bwp_id_addmod_bmask = 00000001b
+         ul_bwp_id_rel_bmask = 00000000b
+         ul_bwp_id_addmod_bmask = 00000001b
+         cfg_mask = COMMON | DEDICATED | DL_FREQ_INFO | UL_FREQ_INFO
+         cc_com_cfg[0]
+            dmrs_type_a_pos = NR5G_DL_DMRS_ADD_POS_2
+            ss_pbch_blk_pwr = -11
+            ssb_period = NR5G_SSB_PERIODICITY_SERV_CELL_MS20
+            rate_match_pattern_id_rel_bmask = 0
+            rate_match_pattern_addmod_bmask = 0
+            cfg_mask = SSB_POS_BURST | SUB_CAR_SPACING | TDD_UL_DL | 0x10
+            sub_carr_spacing = NR5G_COMMON_SUB_CARR_SPACING_kHz30
+            ssb_pos_in_burst_bmask = 0x8000000000000000
+            tdd_ul_dl_cfg_common[0]
+               enable = 1
+               ref_scs = 1
+               pattern2_enable = 1
+               pattern1
+                  dl_ul_trans_period = MS2_5
+                  num_dl_sym = 10
+                  num_ul_sym = 2
+                  num_dl_slots = 3
+                  num_ul_slots = 1
+               pattern2
+                  dl_ul_trans_period = MS2_5
+                  num_dl_sym = 10
+                  num_ul_sym = 2
+                  num_dl_slots = 2
+                  num_ul_slots = 2
+         cc_ded_cfg[0] {
+            tag_id = 0
+            bwp_inact_timer = MS0
+            first_active_dl_bwp_id = 0
+            default_dl_bwp_id = 0
+            first_active_ul_bwp = 0
+            ue_beam_lock_fn = 0
+            serving_cell_mo_id = 255
+            cfg_mask =                         0
+            path_loss_reference_linking = PCELL
+            antenna_info_dl {
+               max_mimo_lyr_cfged = 1
+               max_num_mimo_lyr = LAYER_FOUR
+               max_num_rx = FOUR
             }
-06:38:45.381338          LOG                      [0xB950]                 NR5G ML1 DL Common Config                                   Length:  712
-06:38:45.381338
-06:38:45.381338	[0xB950]	NR5G ML1 DL Common Config
-Major.Minor Version = 3. 2
-Version 0x30002
-   Current SFN time
-      Slot = 1
-      Sub FN = 8
-      Sys FN = 992
-      SCS = 30KHZ
-   OTA Cfg Param
-      Logging time Sub FN = 8
-      Logging time Sys FN = 992
-      Num cg add mod = 1
-      CG Add Mod
-         Log mask = 1
-         Per CC Config[0]
-            Cell Info
-               Band = BAND79
-               Phy Cell Id = 186
-               SSB Sub Carrier Spacing = 30KHZ
-               DL Cell frequency = 720288
-            Duplex Mode = TDD
-            SCC Id = 0
-            serv_cell_idx = 0
-            num_coreset_add_mod = 2
-            num_search_space_add_mod = 2
-            num_dl_bwp_id_addmod = 1
-            num_ul_bwp_id_addmod = 1
-            dl_bwp_id_rel_bmask = 0
-            dl_bwp_id_addmod_bmask = 1
-            ul_bwp_id_rel_bmask = 0
-            ul_bwp_id_addmod_bmask = 1
-            cfg_mask = COMMON | DEDICATED | DL FREQUENCY INFO | UL FREQUENCY INFO
-            CC Common CFG[0]
-               dmrs_type_a_pos = NR5G_DL_DMRS_ADD_POS_2
-               SS PBCH BLK PWR = -11
-               SSB Period = MS20
-               Rate Match Pattern Id Rel Bmask = 0
-               Rate Match Pattern Add Mod Mask = 0
-               CFG Mask = SSB_POS_BURST | SUB_CAR_SPACING | TDD_UL_DL | 0x10
-               Sub Carr Spacing = 30KHZ
-               SSB POS In Burst Bmask = 8000000000000000
-               TDD UL DL CFG[0]
-                  Enable = 1
-                  Ref Scs = 1
-                  Pattern2 Enable = 1
-                  Pattern 1
-                     DL Ul trans Period = MS5
-                     Num DL Sym = 6
-                     Num Ul Sym = 4
-                     Num DL Slots = 3
-                     Num Ul Slots = 2
-                  Pattern 2
-                     DL Ul trans Period = MS2
-                     Num DL Sym = 0
-                     Num Ul Sym = 0
-                     Num DL Slots = 4
-                     Num Ul Slots = 0
-            CC Dedicated CFG[0]
-               Tag Id = 0
-               BWP Inact Timer = MS0,
-               First Active DL bwp Id = 0
-               Default Dl Bwp Id = 0
-               First Active Ul Bwp = 0
-               UE Beam lock Fn = 0
-               Serving Cell mo id = 0
-               CFG Mask = 0
-               Path loss Reference linking = PCELL
-               Antenna Info DL
-                  Max Mimo Lyr Cfged = 1
-                  Max Num Mimo Lyr = LYR_FOUR
-                  Max Num rx = FOUR
-            DL Frequency Info[0]
-               Abs Freq SSB = 720288
-               Abs Freq Point A = 720048
-               Num Scs Carriers = 1
-               Multi frequency Band List
-                  Num Bands = 1
-                  Frequency Band Indicator = { 79, 0, 0, 0, 0, 0, 0, 0 }
-               Scs Spec Carrier List
-                  -------------------------------------------------
-                  |   |Offset To |Carrier BW|          |          |
-                  |#  |Carrier   |Prb       |SCS       |Carrier BW|
-                  -------------------------------------------------
-                  |  0|         0|       273|     30KHZ|    100MHZ|
-                  |  1|         0|         0|     15KHZ|      5MHZ|
-                  |  2|         0|         0|     15KHZ|      5MHZ|
-                  |  3|         0|         0|     15KHZ|      5MHZ|
-                  |  4|         0|         0|     15KHZ|      5MHZ|
+         }
+         dl_freq_info[0]
+            abs_freq_ssb = 644736
+            abs_freq_point_a = 644208
+            num_scs_carriers = 1
+            multi_freq_band_list
+               num_bands = 1
+               freq_band_indicator = { 78, 0, 0, 0, 0, 0, 0, 0 }
+            scs_spec_carr_list
+               ----------------------------------------------------------------
+               |#  |offset_to_carr|carrier_bw_prb|scs         |carrier_bw     |
+               ----------------------------------------------------------------
+               |  0|             0|           273|       kHz30| NR5G_BW_200MHz|
+               |  1|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  2|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  3|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  4|             0|             0|       kHz15|   NR5G_BW_5MHz|
 
-            UL Frequency Info[0]
-               Abs Freq Point A = 720048
-               P Max = 230
-               Add Spectrum emission Present = 0
-               Add Spectrum Emission = 0
-               Freq Shift 7p5_khz = 0
-               Num SCS Carriers = 1
-               Multi Frequency band List
-                  Num Bands = 1
-                  Frequency Band Indicator = { 79, 0, 0, 0, 0, 0, 0, 0 }
-               Scs Spec Carrier List
-                  -------------------------------------------------
-                  |   |Offset To |Carrier BW|          |          |
-                  |#  |Carrier   |Prb       |SCS       |Carrier BW|
-                  -------------------------------------------------
-                  |  0|         0|       273|     30KHZ|    100MHZ|
-                  |  1|         0|         0|     15KHZ|      5MHZ|
-                  |  2|         0|         0|     15KHZ|      5MHZ|
-                  |  3|         0|         0|     15KHZ|      5MHZ|
-                  |  4|         0|         0|     15KHZ|      5MHZ|
+         ul_freq_info[0]
+            abs_freq_point_a = 644208
+            p_max = 230
+            add_spectrum_emission_present = 0
+            add_spectrum_emission = 0
+            freq_shift_7p5_khz = 0
+            num_scs_carriers = 1
+            multi_freq_band_list
+               num_bands = 1
+               freq_band_indicator = { 78, 0, 0, 0, 0, 0, 0, 0 }
+            scs_spec_carr_list
+               ----------------------------------------------------------------
+               |#  |offset_to_carr|carrier_bw_prb|scs         |carrier_bw     |
+               ----------------------------------------------------------------
+               |  0|             0|           273|       kHz30| NR5G_BW_200MHz|
+               |  1|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  2|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  3|             0|             0|       kHz15|   NR5G_BW_5MHz|
+               |  4|             0|             0|       kHz15|   NR5G_BW_5MHz|
 
-            DL BWP Params[0] {
-               BWP Generic Params
-                  BWP Id =          0
-                  Loc And BW =       1099
-                  Sub Carrier Spacing =      30KHZ
-                  Cyclic Prefix =     NORMAL
-               CFG mask = COMMON | DEDICATED
-               DL BWP Common[0]
-                  CFG Mask = MASK PDCCH | MASK PDSCH
-                  Pdcch Common[0]
-                     Enable = 1
-                     Coreset Zero Id = 0
-                     Search Space Zero Id = 0
-                     Coreset Active bmask = 1
-                     Coreset Release Bmask = 0
-                     Search Space Active Bmask = 0000000000000003
-                     Search Space Rel Bmask = 0000000000000000
-                     Search Space Id RMSI = 0
-                     Search Space ID OSI = 1
-                     Search Space ID Paging = 1
-                     Search Space ID RA = 1
-                  Pdsch Common[0]
-                     Enable = 1
-                     Num Pdsch Alloc List = 3
-                     Pdsch Time Dom Alloc List
-                        -------------------------------------------------
-                        |   |          |Mapping   |          |Start Sum |
-                        |#  |K Present |type      |K         |and length|
-                        -------------------------------------------------
-                        |  0|         0|    TYPE A|         0|        53|
-                        |  1|         0|    TYPE A|         0|        44|
-                        |  2|         0|    TYPE A|         0|        81|
-                        |  3|         0|    TYPE A|         0|         0|
-                        |  4|         0|    TYPE A|         0|         0|
-                        |  5|         0|    TYPE A|         0|         0|
-                        |  6|         0|    TYPE A|         0|         0|
-                        |  7|         0|    TYPE A|         0|         0|
-                        |  8|         0|    TYPE A|         0|         0|
-                        |  9|         0|    TYPE A|         0|         0|
-                        | 10|         0|    TYPE A|         0|         0|
-                        | 11|         0|    TYPE A|         0|         0|
-                        | 12|         0|    TYPE A|         0|         0|
-                        | 13|         0|    TYPE A|         0|         0|
-                        | 14|         0|    TYPE A|         0|         0|
-                        | 15|         0|    TYPE A|         0|         0|
+         dl_bwp_params[0]
+            bwp_generic_params
+               bwp_id = 0
+               loc_and_bw = 1099
+               sub_carr_spacing = kHz30
+               cyclic_prefix = NORMAL
+            cfg_mask = COMMON | DEDICATED
+            dl_bwp_common[0]
+               cfg_mask = PDCCH | PDSCH
+               pdcch_common[0]
+                  enable = 1
+                  corset_zero_id = 10
+                  searchspace_zero_id = 0
+                  coreset_active_bmask = 1
+                  coreset_rel_bmask = 0
+                  search_space_active_bmask = 0x0000000000000003
+                  search_space_rel_bmask = 0x0000000000000000
+                  search_space_id_RMSI = 0
+                  search_space_id_OSI = 1
+                  search_space_id_paging = 1
+                  search_space_id_ra = 1
+               pdsch_common[0]
+                  enable = 1
+                  num_pdsch_alloc_list = 3
+                  pdsch_time_dom_alloc_list
+                     -----------------------------------------------------
+                     |#  |k_present|mapping_type|k  |start_sum_and_length|
+                     -----------------------------------------------------
+                     |  0|        0|      TYPE_A|  0|                  40|
+                     |  1|        0|      TYPE_A|  0|                  96|
+                     |  2|        0|      TYPE_A|  0|                  68|
+                     |  3|        0|      TYPE_A|  0|                   0|
+                     |  4|        0|      TYPE_A|  0|                   0|
+                     |  5|        0|      TYPE_A|  0|                   0|
+                     |  6|        0|      TYPE_A|  0|                   0|
+                     |  7|        0|      TYPE_A|  0|                   0|
+                     |  8|        0|      TYPE_A|  0|                   0|
+                     |  9|        0|      TYPE_A|  0|                   0|
+                     | 10|        0|      TYPE_A|  0|                   0|
+                     | 11|        0|      TYPE_A|  0|                   0|
+                     | 12|        0|      TYPE_A|  0|                   0|
+                     | 13|        0|      TYPE_A|  0|                   0|
+                     | 14|        0|      TYPE_A|  0|                   0|
+                     | 15|        0|      TYPE_A|  0|                   0|
 
-               DL BWP Dedicated[0]
-                  CFG Mask = PDSCH
-                  Pdsch CFG DED[0]
-                     Enable = 1
-                     Mcs Table = 64QAM
-                     Rbg Size = 1
-                     CFG Mask = DATA SCR ID | DMRS DL TYPEA
-                     Pdsch Rsc Alloc = RATP1
-                     Max Code words Scheduled by DCI = N1
-                     Vrb to Prb InterLeaver = NONE
-                     Data Scr Id = 65535
-                     Rate Match Pattern1 Cell Level Id bmask = 0
-                     Rate Match Pattern1 Bwp Levwl Id bmask = 0
-                     Rate Match Pattern2 Cell Level Id bmask = 0
-                     Rate Match Pattern2 Bwp Levwl Id bmask = 0
-                     Num Prb Bundling
-                        Prb Bundling Type = 0
-                        Static Bundle Size = 1
-                        Dyncamic Bundle Size Set1 = 0
-                        Dyncamic Bundle Size Set2 = 0
-                     Dmrs Dl Type A[0]
-                        Enable = 1
-                        Max Length = 0
-                        CFG Mask = MASK_SCR0_DEFAULT | MASK_SCR1_DEFAULT
-                        Dmrs Type = 0
-                        Dmrs Pos = 2
-                        Phase Tracking Rs
-                           Enable = 0
-                           Rsc Element Offeset = 0
-                           Epre Ratio = 0
-                           CFG Mask = 0
-                           Freq Density = { 0, 0 }
-                           Time Density = { 0, 0, 0 }
-            }
-            UL BWP Addmod
-               -------------------------------------------------
-               |   |          |          |Sub       |          |
-               |   |          |          |Carrier   |Cyclic    |
-               |#  |BWP Id    |Loc And BW|Spacing   |Prefix    |
-               -------------------------------------------------
-               |  0|         0|      1099|     30KHZ|    NORMAL|
+            dl_bwp_ded[0]
+               cfg_mask = PDSCH
+               pdsch_cfg_ded[0]
+                  enable = 1
+                  mcs_table = MCS_256QAM
+                  rbg_size = 1
+                  cfg_mask = DATA_SCR_ID | DMRS_DL_TYPEA
+                  pdsch_rsc_alloc = RATP1
+                  max_code_words_scheduled_by_dci = N1
+                  vrb_to_prb_interleaver = NONE
+                  data_scr_id = 65535
+                  num_pdsch_alloc_list = 0
+                  prb_bundling
+                     prb_bundling_type = 0
+                     static_BundleSize = 1
+                     dynamic_BundleSize_set1 = 0
+                     dynamic_BundleSize_set2 = 0
+                  dmrs_dl_typeA[0]
+                     enable = 1
+                     max_length = 0
+                     cfg_mask = SCR0_DEFAULT | SCR1_DEFAULT
+                     dmrs_type = 0
+                     dmrs_pos = 2
+                     dmrs_scr_id0 = 65535
+                     dmrs_scr_id1 = 65535
+                     phase_tracking_rs
+                        enable = 0
+                        rsc_element_offset = 0
+                        epre_ratio = 0
+                        cfg_mask = 0
+                        freq_density = { 0, 0 }
+                        time_density = { 0, 0, 0 }
+         ul_bwp_addmod
+            ------------------------------------------------------
+            |#  |bwp_id|loc_and_bw|sub_carr_spacing|cyclic_prefix|
+            ------------------------------------------------------
+            |  0|     0|      1099|           kHz30|       NORMAL|
 
-            Coreset Add Mod
-               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               |   |          |          |               |                             |                             |                  |          |                    |CCE Req Mapping                                                                        |
-               |   |Control   |          |               |                             |                             |                  |          |                    |                                |Interleaved_CCE_Req_Mapping                           |
-               |   |Resource  |          |               |                             |                             |                  |Pdcch Dmrs|                    |                                |Req Bundle|                    |InterLeaver|Shift     |
-               |#  |Set ID    |Duration  |Freq_Dom_Rsc   |TCI_States_Pdcch_To_Add_Bmask|TCI_States_Pdcch_To_Rel_Bmask|TCI_Present_in_DCI|Scr ID    |Precoder Gran       |CCE_Reg_Mapping_type            |Size      |Precoder_Gran       |Rows       |Index     |
-               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-               |  0|         0|         2|00001E0000000000|             0000000000000000|             0000000000000000|                 0|       186|  SAME_AS_REG_BUNDLE|                     INTERLEAVED|        N6|  SAME_AS_REG_BUNDLE|         N2|     65535|
-               |  1|         1|         2|00001FFFFFFFFFFF|             0000000000000000|             0000000000000000|                 0|       186|  SAME_AS_REG_BUNDLE|                 NON_INTERLEAVED|         0|  SAME_AS_REG_BUNDLE|         N2|         0|
+         coreset_add_mod
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            |   |                       |        |            |                            |                            |                  |                 |                    |cce_reg_mapping                                                                       |
+            |   |                       |        |            |                            |                            |                  |                 |                    |                    |interleaved_cce_reg_mapping                                      |
+            |#  |control_resource_set_id|duration|freq_dom_rsc|tci_states_pdcch_to_add_bmsk|tci_states_pdcch_to_rel_bmsk|tci_present_in_dci|pdcch_dmrs_scr_id|precoder_gran       |cce_reg_mapping_type|reg_bundle_size|precoder_gran       |interleaver_rows|shift_index|
+            --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            |  0|                      0|       1|35046933135360|          0x0000000000000000|          0x0000000000000000|                 0|              186|  SAME_AS_REG_BUNDLE|                   0|             N6|  SAME_AS_REG_BUNDLE|              N2|      65535|
+            |  1|                      1|       1|35184372088831|          0x0000000000000000|          0x0000000000000000|                 0|              186|  SAME_AS_REG_BUNDLE|                   1|              0|  SAME_AS_REG_BUNDLE|              N2|          0|
 
-            Search Space Add Mod[0] {
-               Search Space Id = 0
-               CFG Mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE INFO
-               Mon Slot Period = SLOT INVALID
-               Control Resource Set Id = 0
-               Mon Slot offeset = 0
-            }
-            Search Space Add Mod[1] {
-               Search Space Id = 1
-               CFG Mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE INFO
-               Mon Slot Period = 1
-               Control Resource Set Id = 0
-               Mon Slot offeset = 0
-            }
+         search_space_add_mod[0]
+            search_space_id = 0
+            num_candidates_aggr_level
+               aggr_level_1 = N0
+               aggr_level_2 = N0
+               aggr_level_4 = N4
+               aggr_level_8 = N2
+               aggr_level_16 = N1
+            cfg_mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE_INFO
+            mon_slot_period = INVALID
+            control_resource_set_id = 0
+            mon_slot_offset = 0
+            mon_sym_within_slot_bmask = 0010000000000000b
+            search_space
+               sspace_type = COMMON
+               common_sspace
+                  cfg_mask = FMT_00_10 | FMT_20_RELEASE | FMT_21_RELEASE | FMT_22_RELEASE | FMT_23_RELEASE
+                  format_00_and_format_10
+                     temp = 0
+                  format_20
+                     aggr_level_is_valid = 0
+                     nr_of_candidates_sfi
+                        aggr_level_1 = N0
+                        aggr_level_2 = N0
+                        aggr_level_4 = N0
+                        aggr_level_8 = N0
+                        aggr_level_16 = N0
+                  format_21
+                     temp = 0
+                  format_22
+                     temp = 0
+                  format_23
+                     mon_period = INVALID
+                     num_pdcch_cand = N1
+         search_space_add_mod[1]
+            search_space_id = 1
+            num_candidates_aggr_level
+               aggr_level_1 = N0
+               aggr_level_2 = N0
+               aggr_level_4 = N4
+               aggr_level_8 = N2
+               aggr_level_16 = N1
+            cfg_mask = MON_SLT_PERIOD | MON_SYM_IN_SLT | NR_OF_CANDIDATES | SSPACE_INFO
+            mon_slot_period = N1
+            control_resource_set_id = 0
+            mon_slot_offset = 0
+            mon_sym_within_slot_bmask = 0010000000000000b
+            search_space
+               sspace_type = COMMON
+               common_sspace
+                  cfg_mask = FMT_00_10 | FMT_20_RELEASE | FMT_21_RELEASE | FMT_22_RELEASE | FMT_23_RELEASE
+                  format_00_and_format_10
+                     temp = 0
+                  format_20
+                     aggr_level_is_valid = 0
+                     nr_of_candidates_sfi
+                        aggr_level_1 = N0
+                        aggr_level_2 = N0
+                        aggr_level_4 = N0
+                        aggr_level_8 = N0
+                        aggr_level_16 = N0
+                  format_21
+                     temp = 0
+                  format_22
+                     temp = 0
+                  format_23
+                     mon_period = INVALID
+                     num_pdcch_cand = N1
+
 ```
 ## Example Output
 ```
@@ -598,10 +635,10 @@ gNBs =
 #  downlinkConfigCommon
     #frequencyInfoDL
       # this is the SSB frequency
-      absoluteFrequencySSB                                      = 720288;
-      dl_frequencyBand                                          = 79;
+      absoluteFrequencySSB                                      = 644736;
+      dl_frequencyBand                                          = 78;
       # this is the Point A frequency
-      dl_absoluteFrequencyPointA                                = 720048;
+      dl_absoluteFrequencyPointA                                = 644208;
       #scs-SpecificCarrierList
         dl_offstToCarrier                                       = 0;
 # subcarrierSpacing
@@ -616,12 +653,12 @@ gNBs =
 # 0=kHz15, 1=kHz30, 2=kHz60, 3=kHz120
         initialDLBWPsubcarrierSpacing                             = 1;
       #pdcch-ConfigCommon
-        initialDLBWPcontrolResourceSetZero                        = 0;
+        initialDLBWPcontrolResourceSetZero                        = 10;
         initialDLBWPsearchSpaceZero                               = 0;
 
   #uplinkConfigCommon
      #frequencyInfoUL
-      ul_frequencyBand                                             = 79;
+      ul_frequencyBand                                             = 78;
       #scs-SpecificCarrierList
       ul_offstToCarrier                                            = 0;
 # subcarrierSpacing
@@ -637,7 +674,7 @@ gNBs =
         initialULBWPsubcarrierSpacing                              = 1;
       #rach-ConfigCommon
         #rach-ConfigGeneric
-          prach_ConfigurationIndex                                 = 198;
+          prach_ConfigurationIndex                                 = 75; #把147改成75
 #prach_msg1_FDM
 #0 = one, 1=two, 2=four, 3=eight
           prach_msg1_FDM                                           = 0;
@@ -645,7 +682,7 @@ gNBs =
           zeroCorrelationZoneConfig                                = 10;
           preambleReceivedTargetPower                              = -90;
 #preamblTransMax (0...10) = (3,4,5,6,7,8,10,20,50,100,200)
-          preambleTransMax                                         = 7;
+          preambleTransMax                                         = 3;
 #powerRampingStep
 # 0=dB0,1=dB2,2=dB4,3=dB6
         powerRampingStep                                           = 2;
@@ -653,7 +690,7 @@ gNBs =
 #1=oneeighth,2=onefourth,3=half,4=one,5=two,6=four,7=eight,8=sixteen
         ssb_perRACH_OccasionAndCB_PreamblesPerSSB_PR               = 4;
 #one (0..15) 4,8,12,16,...60,64
-        ssb_perRACH_OccasionAndCB_PreamblesPerSSB                  = 32;
+        ssb_perRACH_OccasionAndCB_PreamblesPerSSB                  = 7;
 #ra_ContentionResolutionTimer
 #(0..7) 8,16,24,32,40,48,56,64
         ra_ContentionResolutionTimer                               = 7;
@@ -661,7 +698,7 @@ gNBs =
 #prach-RootSequenceIndex_PR
 #1 = 839, 2 = 139
         prach_RootSequenceIndex_PR                                 = 2;
-        prach_RootSequenceIndex                                    = 4;
+        prach_RootSequenceIndex                                    = 1;
         # SCS for msg1, can only be 15 for 30 kHz < 6 GHz, takes precendence over the one derived from prach-ConfigIndex
         #
         msg1_SubcarrierSpacing                                     = 1,
@@ -670,7 +707,7 @@ gNBs =
         restrictedSetConfig                                        = 0,
 
         msg3_DeltaPreamble                                         = 0;
-        p0_NominalWithGrant                                        =-78;
+        p0_NominalWithGrant                                        =-96;
 
 # pucch-ConfigCommon setup :
 # pucchGroupHopping
@@ -704,17 +741,17 @@ gNBs =
       # ext: 8=ms3, 9=ms4
       dl_UL_TransmissionPeriodicity                                = 5;
       nrofDownlinkSlots                                            = 3;
-      nrofDownlinkSymbols                                          = 6;
-      nrofUplinkSlots                                              = 2;
-      nrofUplinkSymbols                                            = 4;
+      nrofDownlinkSymbols                                          = 10;
+      nrofUplinkSlots                                              = 1;
+      nrofUplinkSymbols                                            = 2;
 
       # pattern2
       pattern2: {
-        dl_UL_TransmissionPeriodicity2                             = 4;
-        nrofDownlinkSlots2                                         = 4;
-        nrofDownlinkSymbols2                                       = 0;
-        nrofUplinkSlots2                                           = 0;
-        nrofUplinkSymbols2                                         = 0;
+        dl_UL_TransmissionPeriodicity2                             = 5;
+        nrofDownlinkSlots2                                         = 2;
+        nrofDownlinkSymbols2                                       = 10;
+        nrofUplinkSlots2                                           = 2;
+        nrofUplinkSymbols2                                         = 2;
       };
 
       ssPBCH_BlockPower                                            = -11;
@@ -757,7 +794,7 @@ RUs = ({
     nb_rx          = 1
     att_tx         = 0
     att_rx         = 0;
-    bands          = [79];
+    bands          = [78];
     max_pdschReferenceSignalPower = -27;
     max_rxgain                    = 114;
     eNB_instances  = [0];
