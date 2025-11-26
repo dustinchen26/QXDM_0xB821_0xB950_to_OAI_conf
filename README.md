@@ -5,7 +5,8 @@ online calculator: https://dustinchen26.github.io/QXDM_0xB821_0xB950_to_OAI_conf
 ## How to use
 ```
 把QXDM[0xB821][0xB950]複製貼到輸入框，即可解析出OAI conf，記得QXDM Options->Export Parsed Text
-(PS) 因為OAI特殊限制，要改code才能run prach_ConfigurationIndex = 147; 
+1.(PS) 因為OAI特殊限制，要改OAI code才能run prach_ConfigurationIndex = 147; 
+2.Sharp conf n79 要設定成 initialDLBWPcontrolResourceSetZero= 4; 因為OAI設成0會有問題
 ```
 
 ## 修改OAI code

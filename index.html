@@ -3,7 +3,6 @@
   Author: Dustin Chen
   Email:  chuhpsdustin@gmail.com
 -->
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -598,7 +597,13 @@ value BCCH-DL-SCH-Message ::=
                 // BWP參數
                 const initialDLBWPlocationAndBandwidth = extractNumber(/locationAndBandwidth (\d+)/, 1099);
                 const initialDLBWPsubcarrierSpacing = 1; // kHz30
-                const initialDLBWPcontrolResourceSetZero = extractNumber(/controlResourceSetZero (\d+)/, 10);
+                
+                // 修改：如果頻段是n79，則設置initialDLBWPcontrolResourceSetZero為4
+                let initialDLBWPcontrolResourceSetZero = extractNumber(/controlResourceSetZero (\d+)/, 10);
+                if (dl_frequencyBand === 79) {
+                    initialDLBWPcontrolResourceSetZero = 4;
+                }
+                
                 const initialDLBWPsearchSpaceZero = extractNumber(/searchSpaceZero (\d+)/, 0);
                 
                 // 上行參數
