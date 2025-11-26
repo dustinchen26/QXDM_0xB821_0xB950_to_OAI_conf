@@ -5,8 +5,35 @@ online calculator: https://dustinchen26.github.io/QXDM_0xB821_0xB950_to_OAI_conf
 ## How to use
 ```
 把QXDM[0xB821][0xB950]複製貼到輸入框，即可解析出OAI conf，記得QXDM Options->Export Parsed Text
-(PS) cedar要修改滿足OAI，不然會Assertion (prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14                                                                                               ) failed!
-prach_ConfigurationIndex = 147; #把147改成75
+(PS) 因為OAI特殊限制，要改code才能run prach_ConfigurationIndex = 147; 
+```
+
+## 修改OAI code
+```
+1. 修改程式碼 
+/home/dustin/openairinterface5g/openair2/GNB_APP/gnb_config.c
+
+///////// 註解掉
+/*  AssertFatal(prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14,
+              "PRACH with configuration index %ld goes to the last symbol of the slot, for optimal performance pick another index. "
+              "See Tables 6.3.3.2-2 to 6.3.3.2-4 in 38.211\n",
+              config_index);
+*/
+
+///////// 改成顯示參數
+{
+// Dustin_fix prach index = 198
+if (!(prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14)) {
+LOG_W(GNB_APP,
+      "PRACH start_symbol=%d, N_t_slot=%d, N_dur=%d, config_index=%d\n",
+      prach_info.start_symbol,
+      prach_info.N_t_slot,
+      prach_info.N_dur,
+      config_index);
+}
+
+2. 重新build
+build_oai_simplified.sh
 ```
 
 ## Example Input

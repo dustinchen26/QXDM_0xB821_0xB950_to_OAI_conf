@@ -2,12 +2,6 @@
   Copyright © [2024] [Dustin_Chen]. All rights reserved.
   Author: Dustin Chen
   Email:  chuhpsdustin@gmail.com
-
-(1) cedar要修改prach_ConfigurationIndex= 147 改成 75
-Assertion (prach_info.start_symbol + prach_info.N_t_slot * prach_info.N_dur < 14) failed!
-In fix_scc() /home/dustin/openairinterface5g/openair2/GNB_APP/gnb_config.c:568
-PRACH with configuration index 147 goes to the last symbol of the slot, for optimal performance pick another index. See Tables 6.3.3.2-2 to 6.3.3.2-4 in 38.211
-
 -->
 
 <!DOCTYPE html>
@@ -132,6 +126,7 @@ PRACH with configuration index 147 goes to the last symbol of the slot, for opti
         
         <div class="info">
             <p><strong>How to use：</strong> QXDM Options->Export Parsed Text，把QXDM[0xB821][0xB950]packet複製貼到輸入框，Click "Convert"即可解析出OAI conf</p>
+            <p><strong>注意：</strong> 根據3GPP 38.331規範，如果檢測到有dl-UL-TransmissionPeriodicity-v1530，則忽略dl-UL-TransmissionPeriodicity</p>
         </div>
         
         <div class="input-section">
@@ -245,187 +240,187 @@ value BCCH-DL-SCH-Message ::=
         servingCellConfigCommon 
         {
           downlinkConfigCommon 
-          {
-            frequencyInfoDL 
             {
-              frequencyBandList 
+              frequencyInfoDL 
               {
+                frequencyBandList 
                 {
-                  freqBandIndicatorNR 78
-                }
-              },
-              offsetToPointA 24,
-              scs-SpecificCarrierList 
-              {
-                {
-                  offsetToCarrier 0,
-                  subcarrierSpacing kHz30,
-                  carrierBandwidth 273
-                }
-              }
-            },
-            initialDownlinkBWP 
-            {
-              genericParameters 
-              {
-                locationAndBandwidth 1099,
-                subcarrierSpacing kHz30
-              },
-              pdcch-ConfigCommon setup : 
-                {
-                  controlResourceSetZero 10,
-                  searchSpaceZero 0,
-                  commonSearchSpaceList 
                   {
-                    {
-                      searchSpaceId 1,
-                      controlResourceSetId 0,
-                      monitoringSlotPeriodicityAndOffset sl1 : NULL,
-                      monitoringSymbolsWithinSlot '10000000 000000'B,
-                      nrofCandidates 
-                      {
-                        aggregationLevel1 n0,
-                        aggregationLevel2 n0,
-                        aggregationLevel4 n4,
-                        aggregationLevel8 n2,
-                        aggregationLevel16 n1
-                      },
-                      searchSpaceType common : 
-                        {
-                          dci-Format0-0-AndFormat1-0 
-                          {
-                          }
-                        }
-                    }
-                  },
-                  searchSpaceSIB1 0,
-                  searchSpaceOtherSystemInformation 1,
-                  pagingSearchSpace 1,
-                  ra-SearchSpace 1
+                    freqBandIndicatorNR 78
+                  }
                 },
-              pdsch-ConfigCommon setup : 
+                offsetToPointA 24,
+                scs-SpecificCarrierList 
                 {
-                  pdsch-TimeDomainAllocationList 
                   {
-                    {
-                      mappingType typeA,
-                      startSymbolAndLength 40
-                    },
-                    {
-                      mappingType typeA,
-                      startSymbolAndLength 96
-                    },
-                    {
-                      mappingType typeA,
-                      startSymbolAndLength 68
-                    }
+                    offsetToCarrier 0,
+                    subcarrierSpacing kHz30,
+                    carrierBandwidth 273
                   }
                 }
-            },
-            bcch-Config 
-            {
-              modificationPeriodCoeff n2
-            },
-            pcch-Config 
-            {
-              defaultPagingCycle rf32,
-              nAndPagingFrameOffset oneSixteenthT : 3,
-              ns one,
-              firstPDCCH-MonitoringOccasionOfPO sCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
-                {
-                  2
-                }
-            }
-          },
-          uplinkConfigCommon 
-          {
-            frequencyInfoUL 
-            {
-              scs-SpecificCarrierList 
-              {
-                {
-                  offsetToCarrier 0,
-                  subcarrierSpacing kHz30,
-                  carrierBandwidth 273
-                }
               },
-              p-Max 23
-            },
-            initialUplinkBWP 
-            {
-              genericParameters 
+              initialDownlinkBWP 
               {
-                locationAndBandwidth 1099,
-                subcarrierSpacing kHz30
-              },
-              rach-ConfigCommon setup : 
+                genericParameters 
                 {
-                  rach-ConfigGeneric 
-                  {
-                    prach-ConfigurationIndex 147,
-                    msg1-FDM one,
-                    msg1-FrequencyStart 2,
-                    zeroCorrelationZoneConfig 10,
-                    preambleReceivedTargetPower -90,
-                    preambleTransMax n6,
-                    powerRampingStep dB4,
-                    ra-ResponseWindow sl20
-                  },
-                  ssb-perRACH-OccasionAndCB-PreamblesPerSSB one : n32,
-                  groupBconfigured 
-                  {
-                    ra-Msg3SizeGroupA b144,
-                    messagePowerOffsetGroupB dB0,
-                    numberOfRA-PreamblesGroupA 4
-                  },
-                  ra-ContentionResolutionTimer sf64,
-                  rsrp-ThresholdSSB 0,
-                  prach-RootSequenceIndex l139 : 4,
-                  msg1-SubcarrierSpacing kHz30,
-                  restrictedSetConfig unrestrictedSet
+                  locationAndBandwidth 1099,
+                  subcarrierSpacing kHz30
                 },
-              pusch-ConfigCommon setup : 
-                {
-                  pusch-TimeDomainAllocationList 
+                pdcch-ConfigCommon setup : 
                   {
+                    controlResourceSetZero 10,
+                    searchSpaceZero 0,
+                    commonSearchSpaceList 
                     {
-                      k2 1,
-                      mappingType typeA,
-                      startSymbolAndLength 27
+                      {
+                        searchSpaceId 1,
+                        controlResourceSetId 0,
+                        monitoringSlotPeriodicityAndOffset sl1 : NULL,
+                        monitoringSymbolsWithinSlot '10000000 000000'B,
+                        nrofCandidates 
+                        {
+                          aggregationLevel1 n0,
+                          aggregationLevel2 n0,
+                          aggregationLevel4 n4,
+                          aggregationLevel8 n2,
+                          aggregationLevel16 n1
+                        },
+                        searchSpaceType common : 
+                          {
+                            dci-Format0-0-AndFormat1-0 
+                            {
+                            }
+                          }
+                      }
                     },
+                    searchSpaceSIB1 0,
+                    searchSpaceOtherSystemInformation 1,
+                    pagingSearchSpace 1,
+                    ra-SearchSpace 1
+                  },
+                pdsch-ConfigCommon setup : 
+                  {
+                    pdsch-TimeDomainAllocationList 
                     {
-                      k2 2,
-                      mappingType typeA,
-                      startSymbolAndLength 27
-                    },
-                    {
-                      k2 3,
-                      mappingType typeA,
-                      startSymbolAndLength 27
-                    },
-                    {
-                      k2 4,
-                      mappingType typeA,
-                      startSymbolAndLength 27
-                    },
-                    {
-                      k2 5,
-                      mappingType typeA,
-                      startSymbolAndLength 27
+                      {
+                        mappingType typeA,
+                        startSymbolAndLength 40
+                      },
+                      {
+                        mappingType typeA,
+                        startSymbolAndLength 96
+                      },
+                      {
+                        mappingType typeA,
+                        startSymbolAndLength 68
+                      }
                     }
-                  },
-                  msg3-DeltaPreamble 0,
-                  p0-NominalWithGrant -96
-                },
-              pucch-ConfigCommon setup : 
-                {
-                  pucch-ResourceCommon 12,
-                  pucch-GroupHopping neither,
-                  p0-nominal -96
-                }
+                  }
+              },
+              bcch-Config 
+              {
+                modificationPeriodCoeff n2
+              },
+              pcch-Config 
+              {
+                defaultPagingCycle rf32,
+                nAndPagingFrameOffset oneSixteenthT : 3,
+                ns one,
+                firstPDCCH-MonitoringOccasionOfPO sCS120KHZquarterT-SCS60KHZoneEighthT-SCS30KHZoneSixteenthT : 
+                  {
+                    2
+                  }
+              }
             },
-            timeAlignmentTimerCommon infinity
-          },
+          uplinkConfigCommon 
+            {
+              frequencyInfoUL 
+              {
+                scs-SpecificCarrierList 
+                {
+                  {
+                    offsetToCarrier 0,
+                    subcarrierSpacing kHz30,
+                    carrierBandwidth 273
+                  }
+                },
+                p-Max 23
+              },
+              initialUplinkBWP 
+              {
+                genericParameters 
+                {
+                  locationAndBandwidth 1099,
+                  subcarrierSpacing kHz30
+                },
+                rach-ConfigCommon setup : 
+                  {
+                    rach-ConfigGeneric 
+                    {
+                      prach-ConfigurationIndex 147,
+                      msg1-FDM one,
+                      msg1-FrequencyStart 2,
+                      zeroCorrelationZoneConfig 10,
+                      preambleReceivedTargetPower -90,
+                      preambleTransMax n6,
+                      powerRampingStep dB4,
+                      ra-ResponseWindow sl20
+                    },
+                    ssb-perRACH-OccasionAndCB-PreamblesPerSSB one : n32,
+                    groupBconfigured 
+                    {
+                      ra-Msg3SizeGroupA b144,
+                      messagePowerOffsetGroupB dB0,
+                      numberOfRA-PreamblesGroupA 4
+                    },
+                    ra-ContentionResolutionTimer sf64,
+                    rsrp-ThresholdSSB 0,
+                    prach-RootSequenceIndex l139 : 4,
+                    msg1-SubcarrierSpacing kHz30,
+                    restrictedSetConfig unrestrictedSet
+                  },
+                pusch-ConfigCommon setup : 
+                  {
+                    pusch-TimeDomainAllocationList 
+                    {
+                      {
+                        k2 1,
+                        mappingType typeA,
+                        startSymbolAndLength 27
+                      },
+                      {
+                        k2 2,
+                        mappingType typeA,
+                        startSymbolAndLength 27
+                      },
+                      {
+                        k2 3,
+                        mappingType typeA,
+                        startSymbolAndLength 27
+                      },
+                      {
+                        k2 4,
+                        mappingType typeA,
+                        startSymbolAndLength 27
+                      },
+                      {
+                        k2 5,
+                        mappingType typeA,
+                        startSymbolAndLength 27
+                      }
+                    },
+                    msg3-DeltaPreamble 0,
+                    p0-NominalWithGrant -96
+                  },
+                pucch-ConfigCommon setup : 
+                  {
+                    pucch-ResourceCommon 12,
+                    pucch-GroupHopping neither,
+                    p0-nominal -96
+                  }
+              },
+              timeAlignmentTimerCommon infinity
+            },
           ssb-PositionsInBurst 
           {
             inOneGroup '10000000'B
@@ -440,7 +435,8 @@ value BCCH-DL-SCH-Message ::=
               nrofDownlinkSlots 3,
               nrofDownlinkSymbols 10,
               nrofUplinkSlots 1,
-              nrofUplinkSymbols 2
+              nrofUplinkSymbols 2,
+              dl-UL-TransmissionPeriodicity-v1530 ms3
             },
             pattern2 
             {
@@ -551,7 +547,7 @@ value BCCH-DL-SCH-Message ::=
                     return match ? binaryToInt(match[1]) : 12345678;
                 })();
                 
-    // 提取頻率相關參數 - 修正的邏輯
+                // 提取頻率相關參數 - 修正的邏輯
                 const absoluteFrequencySSB = (() => {
                     // 先嘗試從新的 DL Frequency Info 格式提取 (Abs Freq SSB)
                     const newFreqMatch = input.match(/Abs Freq SSB\s*=\s*(\d+)/i);
@@ -576,22 +572,22 @@ value BCCH-DL-SCH-Message ::=
                     if (oldFreqMatch) return parseInt(oldFreqMatch[1], 10);
                     
                     // 如果都沒有找到，使用 SSB 頻率減去固定偏移作為備用
-        return absoluteFrequencySSB - 528;
+                    return absoluteFrequencySSB - 528;
                 })();
                 
                 // 提取頻段
-    const dl_frequencyBand = (() => {
-        // 先嘗試從頻段指示器提取
-        const bandMatch = input.match(/freqBandIndicatorNR\s+(\d+)/i);
-        if (bandMatch) return parseInt(bandMatch[1], 10);
-        
-        // 再嘗試從 BAND 字段提取
-        const bandStrMatch = input.match(/band\s*=\s*BAND(\d+)/i);
-        if (bandStrMatch) return parseInt(bandStrMatch[1], 10);
-        
-        return 78; // 默認值
-    })();
-    
+                const dl_frequencyBand = (() => {
+                    // 先嘗試從頻段指示器提取
+                    const bandMatch = input.match(/freqBandIndicatorNR\s+(\d+)/i);
+                    if (bandMatch) return parseInt(bandMatch[1], 10);
+                    
+                    // 再嘗試從 BAND 字段提取
+                    const bandStrMatch = input.match(/band\s*=\s*BAND(\d+)/i);
+                    if (bandStrMatch) return parseInt(bandStrMatch[1], 10);
+                    
+                    return 78; // 默認值
+                })();
+                
                 const ul_frequencyBand = dl_frequencyBand; // 通常上下行頻段相同
                 
                 // 提取帶寬相關參數
@@ -612,14 +608,7 @@ value BCCH-DL-SCH-Message ::=
                 const pMax = extractNumber(/p-Max (\d+)/, 23);
                 const initialULBWPlocationAndBandwidth = extractNumber(/locationAndBandwidth (\d+)/, 1099);
                 const initialULBWPsubcarrierSpacing = 1; // kHz30
-                
-                // RACH參數 - 關鍵修改：將 147 改為 75
-                const prach_ConfigurationIndex = (() => {
-                    const extracted = extractNumber(/prach-ConfigurationIndex (\d+)/, 147);
-                    // 如果提取到的是147，則改為75
-                    return extracted === 147 ? 75 : extracted;
-                })();
-                
+                const prach_ConfigurationIndex = extractNumber(/prach-ConfigurationIndex (\d+)/, 147);
                 const prach_msg1_FDM = 0; // one
                 const prach_msg1_FrequencyStart = extractNumber(/msg1-FrequencyStart (\d+)/, 2);
                 const zeroCorrelationZoneConfig = extractNumber(/zeroCorrelationZoneConfig (\d+)/, 10);
@@ -686,7 +675,7 @@ value BCCH-DL-SCH-Message ::=
                 const subcarrierSpacing = 1; // kHz30
                 const referenceSubcarrierSpacing = 1; // kHz30
                 
-                // 提取TDD配置 - 支持雙周期
+                // 提取TDD配置 - 支持雙周期並遵循3GPP規範
                 const extractTDDConfig = () => {
                     const tddConfig = {
                         pattern1: {},
@@ -694,10 +683,14 @@ value BCCH-DL-SCH-Message ::=
                     };
 
                     // 從SIB1提取pattern1
-                    const pattern1Match = input.match(/pattern1[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)/);
+                    const pattern1Match = input.match(/pattern1[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)(?:\s*,\s*dl-UL-TransmissionPeriodicity-v1530\s+ms(\d+(?:p\d+)?))?/);
+                    
                     if (pattern1Match) {
+                        // 檢查是否存在v1530版本，如果存在則使用v1530，否則使用原始版本
+                        const periodicity = pattern1Match[6] ? pattern1Match[6] : pattern1Match[1];
+                        
                         tddConfig.pattern1 = {
-                            dl_UL_TransmissionPeriodicity: mapPeriodicity(pattern1Match[1]),
+                            dl_UL_TransmissionPeriodicity: mapPeriodicity(periodicity),
                             nrofDownlinkSlots: parseInt(pattern1Match[2], 10),
                             nrofDownlinkSymbols: parseInt(pattern1Match[3], 10),
                             nrofUplinkSlots: parseInt(pattern1Match[4], 10),
@@ -706,10 +699,14 @@ value BCCH-DL-SCH-Message ::=
                     }
 
                     // 從SIB1提取pattern2
-                    const pattern2Match = input.match(/pattern2[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)/);
+                    const pattern2Match = input.match(/pattern2[^{]*{\s*dl-UL-TransmissionPeriodicity\s+ms(\d+(?:p\d+)?),\s*nrofDownlinkSlots\s+(\d+),\s*nrofDownlinkSymbols\s+(\d+),\s*nrofUplinkSlots\s+(\d+),\s*nrofUplinkSymbols\s+(\d+)(?:\s*,\s*dl-UL-TransmissionPeriodicity-v1530\s+ms(\d+(?:p\d+)?))?/);
+                    
                     if (pattern2Match) {
+                        // 檢查是否存在v1530版本，如果存在則使用v1530，否則使用原始版本
+                        const periodicity = pattern2Match[6] ? pattern2Match[6] : pattern2Match[1];
+                        
                         tddConfig.pattern2 = {
-                            dl_UL_TransmissionPeriodicity: mapPeriodicity(pattern2Match[1]),
+                            dl_UL_TransmissionPeriodicity: mapPeriodicity(periodicity),
                             nrofDownlinkSlots: parseInt(pattern2Match[2], 10),
                             nrofDownlinkSymbols: parseInt(pattern2Match[3], 10),
                             nrofUplinkSlots: parseInt(pattern2Match[4], 10),
@@ -720,20 +717,20 @@ value BCCH-DL-SCH-Message ::=
                     return tddConfig;
                 };
 
-                // 周期字符串映射到OAI數值
+                // 周期字符串映射到OAI數值 - 更新以支持所有周期值
                 function mapPeriodicity(periodStr) {
                     switch(periodStr) {
-                        case '0p5': return 0;
-                        case '0p625': return 1;
-                        case '1': return 2;
-                        case '1p25': return 3;
-                        case '2': return 4;
-                        case '2p5': return 5;
-                        case '5': return 6;
-                        case '10': return 7;
-                        case '3': return 8;
-                        case '4': return 9;
-                        default: return 5; // 默認ms2p5
+                        case '0p5': return 0;    // ms0.5
+                        case '0p625': return 1;  // ms0.625  
+                        case '1': return 2;      // ms1
+                        case '1p25': return 3;   // ms1.25
+                        case '2': return 4;      // ms2
+                        case '2p5': return 5;    // ms2.5
+                        case '5': return 6;      // ms5
+                        case '10': return 7;     // ms10
+                        case '3': return 8;      // ms3 (v1530)
+                        case '4': return 9;      // ms4 (v1530)
+                        default: return 5;       // 默認ms2.5
                     }
                 }
 
